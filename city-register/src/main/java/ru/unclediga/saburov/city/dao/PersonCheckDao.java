@@ -21,7 +21,7 @@ public class PersonCheckDao {
                     "  and ca.extension = ?\n" +
                     "  and ca.apartment = ? \n";
 
-    PersonResponse checkPerson(PersonRequest request) throws PersonCheckException {
+    public PersonResponse checkPerson(PersonRequest request) throws PersonCheckException {
         final PersonResponse personResponse = new PersonResponse();
         try (Connection connection = getConnection();
              PreparedStatement stmt = connection.prepareStatement(SQL_REQUEST)) {
@@ -63,7 +63,24 @@ public class PersonCheckDao {
         return personResponse;
     }
 
+    public PersonCheckDao() {
+        // Calling from Servlet result this error _         _
+        //                                         \ (*.*)/
+        // java.sql.SQLException: No suitable driver found for jdbc:mysql://localhost:3306/db_example
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     private Connection getConnection() throws SQLException {
+        // Calling from Servlet result this error _         _
+        //                                         \ (*.*)/
+        // java.sql.SQLException: No suitable driver found for jdbc:mysql://localhost:3306/db_example
+        // Overcome:
+        //         Class.forName("com.mysql.jdbc.Driver");
+        // see Constructor above
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/db_example","springuser","springuser");
     }
 }
