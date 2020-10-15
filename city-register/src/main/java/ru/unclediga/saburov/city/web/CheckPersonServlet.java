@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @WebServlet(urlPatterns = "/checkPerson")
 public class CheckPersonServlet extends HttpServlet {
@@ -39,7 +40,10 @@ public class CheckPersonServlet extends HttpServlet {
 //        request.setSurName("Васильев");
         request.setGivenName("Павел");
         request.setPatronymic("Николаевич");
-        request.setDateOfBirth(LocalDate.of(1995, 3, 18));
+//        request.setDateOfBirth(LocalDate.of(1995, 3, 18));
+        request.setDateOfBirth(LocalDate.parse(
+                req.getParameter("dateOfBirth"),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         request.setStreetCode(1);
         request.setBuilding("10");
         request.setExtension("2");

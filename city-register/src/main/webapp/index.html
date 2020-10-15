@@ -1,15 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>City-Register</title>
 </head>
 <body>
 <strong>Hello from City-Register</strong>
-<form action="checkPerson">
+<form action="checkPerson" method="get">
     <label>Surname:
-        <input type="text" name="surname"/>
+        <input type="text" name="surname" value="Васильев"/>
     </label>
+    <br/>
+    <label>birth date
+        <input type="date" name="dateOfBirth" value="1995-03-18">
+    </label>
+    <br/>
     <input type="submit" value="Submit"/>
 </form>
 </body>
