@@ -36,7 +36,6 @@ public class PersonCheckDao {
             } else {
                 sql += "\n and a.apartment is null ";
             }
-
             stmt.setString(1, request.getSurName());
             stmt.setString(2, request.getGivenName());
             stmt.setString(3, request.getPatronymic());
@@ -51,7 +50,6 @@ public class PersonCheckDao {
             if (request.getApartment() != null) {
                 stmt.setString(next, request.getApartment());
             }
-
             final ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {
                 personResponse.setRegistered(true);
@@ -68,7 +66,13 @@ public class PersonCheckDao {
         //                                         \ (*.*)/
         // java.sql.SQLException: No suitable driver found for jdbc:mysql://localhost:3306/db_example
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            // TOMCAT 9.0:
+            // Loading class `com.mysql.jdbc.Driver'. This is deprecated.
+            // The new driver class is `com.mysql.cj.jdbc.Driver'.
+            // The driver is automatically registered via the SPI and
+            // manual loading of the driver class is generally unnecessary.
+            //Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
