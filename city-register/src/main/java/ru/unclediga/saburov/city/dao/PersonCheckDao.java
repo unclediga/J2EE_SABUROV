@@ -7,6 +7,7 @@ import ru.unclediga.saburov.city.exception.PersonCheckException;
 import java.sql.*;
 
 public class PersonCheckDao {
+    private ConnectionBuilder connectionBuilder;
     private static final String SQL_REQUEST =
             "select temporal \n" +
                     " from cr_address_person c\n" +
@@ -20,6 +21,10 @@ public class PersonCheckDao {
                     "  and ca.building = ?\n" +
                     "  and ca.extension = ?\n" +
                     "  and ca.apartment = ? \n";
+
+    public void setConnectionBuilder(ConnectionBuilder connectionBuilder) {
+        this.connectionBuilder = connectionBuilder;
+    }
 
     public PersonResponse checkPerson(PersonRequest request) throws PersonCheckException {
         final PersonResponse personResponse = new PersonResponse();
@@ -79,12 +84,6 @@ public class PersonCheckDao {
     }
 
     private Connection getConnection() throws SQLException {
-        // Calling from Servlet result this error _         _
-        //                                         \ (*.*)/
-        // java.sql.SQLException: No suitable driver found for jdbc:mysql://localhost:3306/db_example
-        // Overcome:
-        //         Class.forName("com.mysql.jdbc.Driver");
-        // see Constructor above
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/db_example","springuser","springuser");
+        return connectionBuilder.getConnection();
     }
 }

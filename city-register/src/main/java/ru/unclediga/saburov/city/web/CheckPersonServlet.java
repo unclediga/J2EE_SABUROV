@@ -3,6 +3,7 @@ package ru.unclediga.saburov.city.web;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.unclediga.saburov.city.dao.PersonCheckDao;
+import ru.unclediga.saburov.city.dao.PoolConnectionBuilder;
 import ru.unclediga.saburov.city.domain.PersonRequest;
 import ru.unclediga.saburov.city.domain.PersonResponse;
 import ru.unclediga.saburov.city.exception.PersonCheckException;
@@ -25,6 +26,7 @@ public class CheckPersonServlet extends HttpServlet {
     public void init() throws ServletException {
         logger.info("MY: calling CheckPersonServlet.init()");
         personCheckDao = new PersonCheckDao();
+        personCheckDao.setConnectionBuilder(new PoolConnectionBuilder());
     }
 
     @Override
