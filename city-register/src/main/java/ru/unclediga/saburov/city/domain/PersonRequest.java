@@ -1,11 +1,13 @@
 package ru.unclediga.saburov.city.domain;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 
 public class PersonRequest {
     private String surName;
     private String givenName;
     private String patronymic;
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDate dateOfBirth;
     private Integer streetCode;
     private String building;

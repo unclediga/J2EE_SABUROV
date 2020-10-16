@@ -41,8 +41,10 @@ public class CheckPersonService {
     @GET
     @Path("/obj-json")
     @Produces(MediaType.APPLICATION_JSON)
-    // {"apartment":"121","building":"10","dateOfBirth":"1997-08-21","extension":"2",
+    // {"apartment":"121","building":"10","dateOfBirth": "21.08.1997","extension":"2",
     // "givenName":"Ирина","patronymic":"Петровна","streetCode":1,"surName":"Васильева"}
+    // Add @XmlJavaTypeAdapter with new date format
+    //   "dateOfBirth": "1997-08-21", =>  "dateOfBirth": "21.08.1997",
     public PersonRequest checkWithObject2() {
         PersonRequest request = new PersonRequest();
         request.setSurName("Васильева");
@@ -53,6 +55,21 @@ public class CheckPersonService {
         request.setBuilding("10");
         request.setExtension("2");
         request.setApartment("121");
+        return request;
+    }
+
+    @POST
+    @Path("/obj-convert")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    // => Get
+    // {"dateOfBirth":"21.08.1997",
+    // "apartment":"121" .....,"surName":"Васильева"}
+    // Return =>
+    // {"dateOfBirth":"31.12.2020",
+    // "apartment":"121" .....,"surName":"Васильева"}
+    public PersonRequest checkWithObjects(PersonRequest request) {
+        request.setDateOfBirth(LocalDate.of(2020,12,31));
         return request;
     }
 }
