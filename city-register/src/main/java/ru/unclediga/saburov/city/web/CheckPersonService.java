@@ -1,14 +1,27 @@
 package ru.unclediga.saburov.city.web;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ru.unclediga.saburov.city.dao.PersonCheckDao;
+import ru.unclediga.saburov.city.dao.PoolConnectionBuilder;
 import ru.unclediga.saburov.city.domain.PersonRequest;
 import ru.unclediga.saburov.city.domain.PersonResponse;
+import ru.unclediga.saburov.city.exception.PersonCheckException;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.inject.Singleton;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.time.LocalDate;
 
 @Path("/check")
+@Singleton
 public class CheckPersonService {
+
+    private PersonCheckDao personCheckDao;
+    private Logger logger = LoggerFactory.getLogger(CheckPersonService.class);
+
     @GET
     public String checkPerson(){
         return "Test String";
@@ -72,4 +85,31 @@ public class CheckPersonService {
         request.setDateOfBirth(LocalDate.of(2020,12,31));
         return request;
     }
+
+    @POST
+    @Path("/check-dao")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public PersonResponse checkWithDAO(PersonRequest request) throws PersonCheckException {
+        return personCheckDao.checkPerson(request);
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
+    // if no @Singleton annotation, then                                           //
+    // @PostConstruct and @PreDestroy invoked every http-request !                 //
+    /////////////////////////////////////////////////////////////////////////////////
+
+    @PostConstruct
+    public void init(){
+        logger.info("MY: @PostConstruct invoked");
+        personCheckDao = new PersonCheckDao();
+        personCheckDao.setConnectionBuilder(new PoolConnectionBuilder());
+    };
+
+    @PreDestroy
+    public void destroy(){
+        logger.info("MY: @PreDestroy invoked");
+        personCheckDao = null; // for sake of example only
+    };
+
 }
