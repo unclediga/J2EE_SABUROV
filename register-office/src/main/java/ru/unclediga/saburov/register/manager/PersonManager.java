@@ -8,11 +8,47 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.query.Query;
 import ru.unclediga.saburov.register.domain.Person;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class PersonManager {
     public static void main(String[] args) {
 
+//        hibernateSessionExample();
+
+        jpaExample();
+    }
+
+    private static void jpaExample() {
+        final EntityManagerFactory factory = Persistence.createEntityManagerFactory("MyPersistenceUnit");
+        final EntityManager em = factory.createEntityManager();
+
+        em.getTransaction().begin();
+
+        Person person = new Person();
+        person.setFirstName("Алексей");
+        person.setLastName("Федоров");
+        em.persist(person);
+        em.getTransaction().commit();
+        final Long id = person.getPersonId();
+        System.out.println("jpa save: id= " + id);
+
+        person = em.find(Person.class, id);
+        System.out.println("jpa find:" + person);
+
+        TypedQuery<Person> query = em.createQuery("FROM Person ", Person.class);
+        List<Person> list = query.getResultList();
+        list.forEach(System.out::println);
+
+        em.close();
+        factory.close();
+
+    }
+
+    private static void hibernateSessionExample() {
         final SessionFactory sessionFactory = getSessionFactoryNoFile();
         Session session = sessionFactory.openSession();
         session.getTransaction().begin();
@@ -62,11 +98,11 @@ public class PersonManager {
         </hibernate-configuration>
          */
         serviceRegistryBuilder.applySetting("hibernate.connection.url", "jdbc:mysql://localhost:3306/db_example");
-        serviceRegistryBuilder.applySetting("hibernate.connection.driver_class","com.mysql.cj.jdbc.Driver");
-        serviceRegistryBuilder.applySetting("hibernate.connection.username","springuser");
-        serviceRegistryBuilder.applySetting("hibernate.connection.password","springuser");
-        serviceRegistryBuilder.applySetting("hibernate.dialect","org.hibernate.dialect.MySQL8Dialect");
-        serviceRegistryBuilder.applySetting("hibernate.show_sql","true");
+        serviceRegistryBuilder.applySetting("hibernate.connection.driver_class", "com.mysql.cj.jdbc.Driver");
+        serviceRegistryBuilder.applySetting("hibernate.connection.username", "springuser");
+        serviceRegistryBuilder.applySetting("hibernate.connection.password", "springuser");
+        serviceRegistryBuilder.applySetting("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
+        serviceRegistryBuilder.applySetting("hibernate.show_sql", "true");
 
         final StandardServiceRegistry serviceRegistry = serviceRegistryBuilder.build();
         final MetadataSources metadataSources = new MetadataSources(serviceRegistry);
