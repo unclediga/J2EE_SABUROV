@@ -2,6 +2,8 @@ package ru.unclediga.saburov.register.domain;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
+
 @Entity
 @Table(name = "ro_person")
 public class Person {
@@ -13,10 +15,13 @@ public class Person {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-//    @Column(name = "patronymic")
-//    private String patronymic;
-//    @Column(name = "date_birth")
-//    private LocalDate dateOfBirth;
+    @Column(name = "patronymic")
+    private String patronymic;
+    @Column(name = "date_birth")
+    private LocalDate dateOfBirth;
+    @OneToMany(cascade = {CascadeType.REFRESH}, fetch = FetchType.LAZY,
+            mappedBy = "person")
+    private List<Passport> passports;
 
     public Long getPersonId() {
         return personId;
@@ -42,12 +47,27 @@ public class Person {
         this.lastName = lastName;
     }
 
-    @Override
-    public String toString() {
-        return "Person{" +
-                "personId=" + personId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
+    public String getPatronymic() {
+        return patronymic;
+    }
+
+    public void setPatronymic(String patronymic) {
+        this.patronymic = patronymic;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public List<Passport> getPassports() {
+        return passports;
+    }
+
+    public void setPassports(List<Passport> passports) {
+        this.passports = passports;
     }
 }
