@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd">
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean name="controller" class="ru.unclediga.saburov.register.rest.MarriageController">
-        <property name="marriageManager" ref="manager"/>
-    </bean>
-    <bean id="manager" class="ru.unclediga.saburov.register.manager.MarriageManager">
-        <property name="marriageDao" ref="dao"/>
-    </bean>
-    <bean id="dao" class="ru.unclediga.saburov.register.dao.MarriageDao">
-        <property name="test" value="SIMPLE"/>
-    </bean>
+    <context:component-scan base-package="ru.unclediga.saburov.register"/>
+
 </beans>
