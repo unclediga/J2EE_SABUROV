@@ -10,7 +10,7 @@ import ru.unclediga.saburov.register.view.MarriageRequest;
 @Component
 public class MarriageDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(MarriageDao.class);
-    @Value("SIMPLE")
+    @Value("${test.value}")
     private String test;
 
     public void setTest(String test) {
