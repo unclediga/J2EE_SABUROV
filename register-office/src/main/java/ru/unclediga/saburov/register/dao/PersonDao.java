@@ -1,5 +1,6 @@
 package ru.unclediga.saburov.register.dao;
 
+import org.springframework.transaction.annotation.Transactional;
 import ru.unclediga.saburov.register.domain.Person;
 
 import javax.persistence.EntityManager;
@@ -75,4 +76,23 @@ public class PersonDao {
         return (Person) namedQuery.getSingleResult();
     }
 
+    @Transactional
+    public Long addPerson(Person person){
+
+        // em.getTransaction().begin();
+        //
+        // Exception in thread "main" java.lang.IllegalStateException:
+        // Not allowed to create transaction on shared EntityManager -
+        // use Spring transactions or EJB CMT instead
+
+
+        em.persist(person);
+        // for immediate generation of ID
+        em.flush();
+
+        // see comment above
+        //em.getTransaction().commit();
+
+        return person.getPersonId();
+    }
 }
