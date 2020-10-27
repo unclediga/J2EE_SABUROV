@@ -2,16 +2,15 @@ package ru.unclediga.saburov.register.dao;
 
 import ru.unclediga.saburov.register.domain.Person;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class PersonDao {
+    @PersistenceContext
     private EntityManager em;
-
-    public PersonDao() {
-        final EntityManagerFactory factory = Persistence.createEntityManagerFactory("MyPersistenceUnit");
-        em = factory.createEntityManager();
-    }
 
     // 1 Query - Persons
     // N Query - birthCert

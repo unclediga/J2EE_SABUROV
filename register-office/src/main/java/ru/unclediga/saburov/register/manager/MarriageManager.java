@@ -29,6 +29,7 @@ public class MarriageManager {
     public MarriageResponse findMarriageCertificate(MarriageRequest request) {
         LOGGER.info("findMarriageCertificate called");
         final MarriageCertificate marriageCertificate = marriageDao.findMarriageCertificate(request);
+        personDao.findPersons();
         return new MarriageResponse();
     }
 }
