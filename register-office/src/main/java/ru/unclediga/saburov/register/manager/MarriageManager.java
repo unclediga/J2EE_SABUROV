@@ -59,6 +59,9 @@ public class MarriageManager {
         LOGGER.info("---->>>>>>");
         final List<MarriageCertificate> list4 = marriageDao.findByNumberParam("1234");
         list4.forEach(mc -> LOGGER.info("MC4 {} number {}",mc.getMarriageCertificateId(),mc.getNumber()));
+        LOGGER.info("---->>>>>>");
+        final List<MarriageCertificate> list5 = marriageDao.findByNum("1234");
+        list5.forEach(mc -> LOGGER.info("MC5 {} number {}",mc.getMarriageCertificateId(),mc.getNumber()));
 
         return new MarriageResponse();
     }
