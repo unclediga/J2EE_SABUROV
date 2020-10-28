@@ -16,6 +16,7 @@ import ru.unclediga.saburov.register.view.MarriageRequest;
 import ru.unclediga.saburov.register.view.MarriageResponse;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service("marriageService")
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON) //equal to @Scope("singleton")
@@ -32,19 +33,26 @@ public class MarriageManager {
     }
 
     public MarriageResponse findMarriageCertificate(MarriageRequest request) {
-        LOGGER.info("findMarriageCertificate called");
-        personDao.findPersons();
+//        LOGGER.info("findMarriageCertificate called");
+//        personDao.findPersons();
+//
+//        Long wifeId = personDao.addPerson(getPerson(1));
+//        final PersonFemale wife = (PersonFemale) personDao.findById(wifeId);
+//        Long husbandId = personDao.addPerson(getPerson(2));
+//        final PersonMale husband = (PersonMale) personDao.findById(husbandId);
+//
+//
+//        MarriageCertificate mc = getMarriageCertificate(wife, husband);
+//        marriageDao.saveAndFlush(mc);
+//        LOGGER.info("findMarriageCertificateId( id => " + mc.getMarriageCertificateId() + ")");
+//        marriageDao.findById(mc.getMarriageCertificateId());
 
-        Long wifeId = personDao.addPerson(getPerson(1));
-        final PersonFemale wife = (PersonFemale) personDao.findById(wifeId);
-        Long husbandId = personDao.addPerson(getPerson(2));
-        final PersonMale husband = (PersonMale) personDao.findById(husbandId);
-
-
-        MarriageCertificate mc = getMarriageCertificate(wife, husband);
-        marriageDao.saveAndFlush(mc);
-        LOGGER.info("findMarriageCertificateId( id => " + mc.getMarriageCertificateId() + ")");
-        marriageDao.findById(mc.getMarriageCertificateId());
+        final List<MarriageCertificate> list = marriageDao.findByNumber("1234");
+        LOGGER.info("---->>>>>>");
+        list.forEach(mc -> LOGGER.info("MC1 {} number {}",mc.getMarriageCertificateId(),mc.getNumber()));
+        LOGGER.info("---->>>>>>");
+        final List<MarriageCertificate> list2 = marriageDao.findByNumberContaining("23");
+        list.forEach(mc -> LOGGER.info("MC2 {} number {}",mc.getMarriageCertificateId(),mc.getNumber()));
 
         return new MarriageResponse();
     }
