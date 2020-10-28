@@ -3,19 +3,26 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
        https://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/tx
-       http://www.springframework.org/schema/tx/spring-tx.xsd">
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/data/jpa
+       https://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
     <context:component-scan base-package="ru.unclediga.saburov.register"/>
     <tx:annotation-driven transaction-manager="txManager"/>
 
+    <jpa:repositories base-package="ru.unclediga.saburov.register"
+                      entity-manager-factory-ref="emf"
+                      transaction-manager-ref="txManager"/>
+
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/db_example" />
+        <property name="url" value="jdbc:mysql://localhost:3306/db_example"/>
         <property name="username" value="springuser"/>
         <property name="password" value="springuser"/>
     </bean>
