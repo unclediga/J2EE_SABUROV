@@ -52,7 +52,13 @@ public class MarriageManager {
         list.forEach(mc -> LOGGER.info("MC1 {} number {}",mc.getMarriageCertificateId(),mc.getNumber()));
         LOGGER.info("---->>>>>>");
         final List<MarriageCertificate> list2 = marriageDao.findByNumberContaining("23");
-        list.forEach(mc -> LOGGER.info("MC2 {} number {}",mc.getMarriageCertificateId(),mc.getNumber()));
+        list2.forEach(mc -> LOGGER.info("MC2 {} number {}",mc.getMarriageCertificateId(),mc.getNumber()));
+        LOGGER.info("---->>>>>>");
+        final List<MarriageCertificate> list3 = marriageDao.findByNumberNoParam("1234");
+        list3.forEach(mc -> LOGGER.info("MC3 {} number {}",mc.getMarriageCertificateId(),mc.getNumber()));
+        LOGGER.info("---->>>>>>");
+        final List<MarriageCertificate> list4 = marriageDao.findByNumberParam("1234");
+        list4.forEach(mc -> LOGGER.info("MC4 {} number {}",mc.getMarriageCertificateId(),mc.getNumber()));
 
         return new MarriageResponse();
     }
