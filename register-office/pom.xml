@@ -61,11 +61,22 @@
             <artifactId>jersey-hk2</artifactId>
             <version>${jersey.version}</version>
         </dependency>
+
+        <!--        Jersey Media JSON Jackson-->
+        <!--        Jersey JSON Jackson (2.x) entity providers support module.-->
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-moxy</artifactId>
+            <artifactId>jersey-media-json-jackson</artifactId>
             <version>${jersey.version}</version>
         </dependency>
+
+        <!--        Jersey Media Moxy-->
+        <!--        Jersey JSON entity providers support module based on EclipseLink MOXy.-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.glassfish.jersey.media</groupId>-->
+        <!--            <artifactId>jersey-media-moxy</artifactId>-->
+        <!--            <version>${jersey.version}</version>-->
+        <!--        </dependency>-->
         <!-- https://mvnrepository.com/artifact/org.glassfish.jersey.ext/jersey-spring5 -->
         <dependency>
             <groupId>org.glassfish.jersey.ext</groupId>
