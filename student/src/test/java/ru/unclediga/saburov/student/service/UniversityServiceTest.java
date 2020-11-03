@@ -1,5 +1,6 @@
 package ru.unclediga.saburov.student.service;
 
+import org.hibernate.LazyInitializationException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -10,7 +11,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import ru.unclediga.saburov.student.domain.Faculty;
 import ru.unclediga.saburov.student.domain.University;
 
-import java.io.Serializable;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -20,7 +20,7 @@ public class UniversityServiceTest {
     @Autowired
     private UniversityService service;
 
-    @Test
+    @Test(expected = LazyInitializationException.class)
     public void findUniversities() {
         final List<University> list = service.findUniversities();
         // No exceptions
@@ -38,6 +38,13 @@ public class UniversityServiceTest {
     }
 
     @Test
+    public void findFullUniversities() {
+        final List<University> list = service.findFullUniversities();
+        list.forEach(u -> System.out.println(u.getUniversityId() + ":" + u.getFaculties().size()));
+    }
+
+
+    @Test(expected = LazyInitializationException.class)
     public void findFaculties() {
         final List<Faculty> list = service.findFaculties();
         // No exceptions
@@ -54,4 +61,28 @@ public class UniversityServiceTest {
 
         list.forEach(u -> System.out.println(u.getFacultyName() + ":" + u.getUniversity()));
     }
+
+    @Test
+    public void getFaculty() {
+        final Faculty faculty = service.getFaculty(1L);
+        // org.hibernate.LazyInitializationException:
+        // could not initialize proxy [ru.unclediga.saburov.student.domain.University#1] - no Session
+        final String universityName = faculty.getUniversity().getUniversityName();
+    }
+
+    @Test
+    public void getFacultyGoodStyle() {
+        final Faculty faculty = service.getFacultyGoodStyle(1L);
+        // No LazyInitializationException on Lazy-field
+        final String universityName = faculty.getUniversity().getUniversityName();
+    }
+
+    @Test
+    public void getFacultyChildStyle() {
+        final Faculty faculty = service.getFacultyChildStyle(1L);
+        // No LazyInitializationException on Lazy-field
+        final String universityName = faculty.getUniversity().getUniversityName();
+    }
+
+
 }
