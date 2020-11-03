@@ -22,16 +22,12 @@ public class StudentService {
     @Autowired
     private StudentRepository repository;
 
-    public void simpleCall() {
-        LOGGER.info("StudentService was CALLED!!!");
-    }
-
     @Transactional
     public List<StudentResponse> getStudentInfo(StudentRequest request) {
         List<Student> student = repository.findStudent(
                 request.getLastName(),
                 request.getFirstName(),
-                request.getModdleName(),
+                request.getMiddleName(),
                 request.getDateOfBirth(),
                 request.getPassportSeria(),
                 request.getPassportNumber(),

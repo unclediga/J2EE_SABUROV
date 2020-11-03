@@ -6,7 +6,7 @@ import java.time.LocalDate;
 public class StudentRequest {
     private String lastName;
     private String firstName;
-    private String moddleName;
+    private String middleName;
     @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     private LocalDate dateOfBirth;
     private String passportSeria;
@@ -30,12 +30,12 @@ public class StudentRequest {
         this.firstName = firstName;
     }
 
-    public String getModdleName() {
-        return moddleName;
+    public String getMiddleName() {
+        return middleName;
     }
 
-    public void setModdleName(String moddleName) {
-        this.moddleName = moddleName;
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
     }
 
     public LocalDate getDateOfBirth() {
