@@ -29,8 +29,14 @@ public class StudentController {
     }
 
     @GetMapping(path = "/params/{checkId}")
-    public String checkParams(@PathVariable("checkId") Long pathVar, @RequestParam("comment") String reqParam){
+    public String checkParams(@PathVariable("checkId") Long pathVar, @RequestParam("comment") String reqParam) {
         return pathVar + ":" + reqParam;
+    }
+
+    @GetMapping(path = "/params2/{p1}/{p2}")
+    public String checkParams2(@PathVariable("p1") Long p1,
+                               @PathVariable(value = "p2", required = false) Long p2) {
+        return String.format("[%d]:[%d]", p1, p2);
     }
 
 }
