@@ -9,6 +9,9 @@
 </head>
 <body>
 <H2>List of universities ${today}</H2>
+<c:if test="${isFromMVC}">
+    <h3 style="color: darkgreen">Hello from MVC!!!</h3>
+</c:if>
 <table border="1">
     <tbody>
     <jsp:useBean id="universities" scope="request" type="java.util.List"/>
