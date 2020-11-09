@@ -1,0 +1,8 @@
+POST http://localhost:8080/student/mvc/student
+Content-Type: application/json
+
+< ./test.json
+
+###
+
+GET http://localhost:8080/student/mvc/student/params/500?comment=test comment
