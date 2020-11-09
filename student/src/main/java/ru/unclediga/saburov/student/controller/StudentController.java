@@ -1,8 +1,8 @@
-package ru.unclediga.saburov.student;
+package ru.unclediga.saburov.student.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 import ru.unclediga.saburov.student.service.StudentService;
 import ru.unclediga.saburov.student.view.StudentRequest;
 import ru.unclediga.saburov.student.view.StudentResponse;
@@ -15,10 +15,11 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
-//    @POST
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces(MediaType.APPLICATION_JSON)
-    public List<StudentResponse> getStudentInfo(StudentRequest request) {
+    @PostMapping(
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public List<StudentResponse> getStudentInfo(@RequestBody StudentRequest request) {
         return studentService.getStudentInfo(request);
     }
 
