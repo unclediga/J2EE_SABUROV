@@ -17,3 +17,127 @@ GET http://localhost:8080/student/mvc/student/params2/10/20
 //GET http://localhost:8080/student/mvc/student/params2/0/a
 ###
 
+POST http://localhost:8080/student/mvc/student/phototest1
+#########   Response
+#########     NO Content-Type: multipart/form-data; boundary=WebAppBoundary
+#########     NO commons-fileupload in pom.xml,
+# HTTP/1.1 400
+# Content-Type: text/html;charset=utf-8
+#
+#<body><h1>HTTP Status 400 – Bad Request</h1>
+#<hr class="line"/>
+#<p><b>Type</b> Status Report</p>
+#<p><b>Message</b> Required String parameter &#39;comment&#39; is not present</p>
+###
+
+POST http://localhost:8080/student/mvc/student/phototest1?comment=MyComment
+#########   Response
+#########     NO Content-Type: multipart/form-data; boundary=WebAppBoundary
+#########     NO commons-fileupload in pom.xml,
+# HTTP/1.1 200
+# Content-Type: text/plain;charset=ISO-8859-1
+#
+# fileUploadTest1 : param Comment = MyComment
+###
+
+POST http://localhost:8080/student/mvc/student/phototest2?comment=MyComment
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+#########   Response
+#########     NO Content-Type: multipart/form-data; boundary=WebAppBoundary
+#########     NO commons-fileupload in pom.xml,
+# HTTP/1.1 415
+# Content-Type: text/html;charset=utf-8
+#
+#<body><h1>HTTP Status 415 – Unsupported Media Type</h1>
+#<hr class="line"/>
+#<p><b>Type</b> Status Report</p>
+#<p><b>Description</b> The origin server is refusing to service the request because the payload is in a format not
+#    supported by this method on the target resource.</p>
+
+#########   Response
+#########     YES Content-Type: multipart/form-data; boundary=WebAppBoundary
+#########     NO  commons-fileupload in pom.xml,
+#HTTP/1.1 200
+#Content-Type: text/plain;charset=ISO-8859-1
+#Content-Length: 43
+#Date: Tue, 10 Nov 2020 12:50:12 GMT
+#Keep-Alive: timeout=20
+#Connection: keep-alive
+#
+#fileUploadTest2 : param Comment = MyComment
+
+###
+
+POST http://localhost:8080/student/mvc/student/phototest3?comment=MyComment
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+#########   Response
+#########     YES Content-Type: multipart/form-data; boundary=WebAppBoundary
+#########     NO  commons-fileupload in pom.xml,
+#HTTP/1.1 200
+#Content-Type: text/plain;charset=ISO-8859-1
+#Content-Length: 56
+#Date: Tue, 10 Nov 2020 13:06:38 GMT
+#Keep-Alive: timeout=20
+#Connection: keep-alive
+#
+#fileUploadTest3 : param Comment = MyComment photo = null
+
+###
+
+POST http://localhost:8080/student/mvc/student/photo?comment=MyComment
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="photoFile"; filename="test.json"
+Content-Type: application/json
+
+< ./test.json
+--WebAppBoundary
+###
+
+#########   Response
+#########     YES Content-Type: multipart/form-data; boundary=WebAppBoundary
+#########     YES photoFile
+#########     NO  commons-fileupload in pom.xml,
+#HTTP/1.1 400
+#Content-Type: text/html;charset=utf-8
+#
+#<body><h1>HTTP Status 400 – Bad Request</h1>
+#<p><b>Type</b> Status Report</p>
+#<p><b>Message</b> Required request part &#39;photoFile&#39; is not present</p>
+
+#########   Response
+#########     YES Content-Type: multipart/form-data; boundary=WebAppBoundary
+#########     YES  photoFile
+#########     YES  commons-fileupload in pom.xml,
+
+#HTTP/1.1 200
+#Content-Type: text/plain;charset=ISO-8859-1
+#Content-Length: 65
+#Date: Tue, 10 Nov 2020 12:47:24 GMT
+#Keep-Alive: timeout=20
+#Connection: keep-alive
+#
+#Comment:MyComment Name:photoFile file name:test.json avg size:202
+
+## Analog with "Host" header
+## All work good
+POST /student/mvc/student/photo?comment=MyComment
+Host: localhost:8080
+Content-Type: multipart/form-data; boundary=--WebKitFormBoundary7MA4YWxkTrZu0gW
+
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="photoFile"; filename="assa.json"
+Content-Type: application/json
+
+< test.json
+----WebKitFormBoundary7MA4YWxkTrZu0gW
+#HTTP/1.1 200
+#Content-Type: text/plain;charset=ISO-8859-1
+#Content-Length: 65
+#Date: Tue, 10 Nov 2020 14:08:54 GMT
+#Keep-Alive: timeout=20
+#Connection: keep-alive
+#
+#Comment:MyComment Name:photoFile file name:assa.json avg size:202
+###
