@@ -4,26 +4,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
+    <groupId>ru.unclediga.saburov</groupId>
     <artifactId>student-payment</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
+    <packaging>war</packaging>
 
     <properties>
-        <hibernate.version>5.4.23.Final</hibernate.version>
-        <spring.version>5.3.1</spring.version>
-        <spring-data.version>2.2.1.RELEASE</spring-data.version>
-        <slf4j.version>1.7.30</slf4j.version>
-
-        <junit.version>4.12</junit.version>
+        <spring.version>5.3.12</spring.version>
+       <hibernate.version>5.5.8.Final</hibernate.version>
+       <slf4j.version>1.7.32</slf4j.version>
     </properties>
 
     <dependencies>
-
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>42.2.5</version>
-        </dependency>
 
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -47,12 +39,14 @@
             <version>${spring.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-jpa</artifactId>
-            <version>${spring-data.version}</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
         </dependency>
 
-        <dependency>
+
+       <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
@@ -63,17 +57,12 @@
             <version>${slf4j.version}</version>
         </dependency>
 
+
+
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>${spring.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.5</version>
         </dependency>
 
     </dependencies>
