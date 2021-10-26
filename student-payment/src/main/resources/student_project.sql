@@ -55,7 +55,9 @@ CREATE TABLE jc_order_status
 
 CREATE TABLE jc_student_order
 (
-    student_order_id SERIAL,
+
+--    student_order_id SERIAL,
+    student_order_id INTEGER AUTO_INCREMENT,
     student_order_status_id int not null,
     student_order_date timestamp not null,
     h_sur_name varchar(100) not null,
@@ -104,7 +106,10 @@ CREATE TABLE jc_student_order
 
 CREATE TABLE jc_student_child
 (
-    student_child_id SERIAL,
+
+
+--    student_child_id SERIAL,
+    student_child_id INTEGER AUTO_INCREMENT,
     student_order_id integer not null,
     c_sur_name varchar(100) not null,
     c_given_name varchar(100) not null,
