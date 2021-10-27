@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>ru.unclediga.saburov</groupId>
+    <artifactId>parent</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+    <name>Parent of J2EE 7</name>
+
+    <modules>
+        <module>city-register</module>
+        <module>register-office</module>
+        <module>student</module>
+        <module>student-payment</module>
+    </modules>
+</project>

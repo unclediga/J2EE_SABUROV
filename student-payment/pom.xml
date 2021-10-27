@@ -4,25 +4,43 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ru.unclediga.saburov</groupId>
     <artifactId>student-payment</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
 
+    <parent>
+        <groupId>ru.unclediga.saburov</groupId>
+        <artifactId>parent</artifactId>
+        <version>1.0</version>
+    </parent>
+
     <properties>
         <spring.version>5.3.12</spring.version>
-        <spring-data.version>2.2.6.RELEASE</spring-data.version>
-       <hibernate.version>5.5.8.Final</hibernate.version>
-       <slf4j.version>1.7.32</slf4j.version>
-       <junit.version>4.12</junit.version>
+        <spring-data.version>2.5.4</spring-data.version>
+        <hibernate.version>5.5.8.Final</hibernate.version>
+        <slf4j.version>1.7.32</slf4j.version>
+        <junit.version>4.12</junit.version>
     </properties>
 
     <dependencies>
 
         <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>7.0</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>${hibernate.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.0-api</artifactId>
+            <version>1.0.1.Final</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -47,8 +65,13 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${spring-data.version}</version>
+        </dependency>
 
-       <dependency>
+        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
@@ -67,20 +90,31 @@
             <scope>test</scope>
         </dependency>
 
-
         <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>42.2.5</version>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.21</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.4.14.Final</version>
+            <scope>compile</scope>
         </dependency>
 
-    </dependencies>
+        <!--        <dependency>-->
+<!--            <groupId>org.postgresql</groupId>-->
+<!--            <artifactId>postgresql</artifactId>-->
+<!--            <version>42.2.5</version>-->
+<!--        </dependency>-->
 
+    </dependencies>
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
                 <configuration>
                     <source>8</source>
                     <target>8</target>
