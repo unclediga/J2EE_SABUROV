@@ -2,24 +2,29 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         https://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/tx
-        http://www.springframework.org/schema/tx/spring-tx.xsd">
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/data/jpa
+        http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
 
-    <context:component-scan base-package="ru.unclediga.saburov.student"/>
-
-    <tx:annotation-driven transaction-manager="txManager"/>
+    <context:component-scan base-package="ru.unclediga.saburov.student.*"/>
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="org.postgresql.Driver"/>
-        <property name="url" value="jdbc:postgresql://localhost:5432/jc_student"/>
-        <property name="username" value="postgres"/>
-        <property name="password" value="postgres"/>
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/db_example?serverTimezone=UTC"/>
+        <!--        <property name="driverClassName" value="org.postgresql.Driver"/>-->
+        <!--        <property name="url" value="jdbc:postgresql://localhost:5432/jc_student"/>-->
+        <property name="username" value="springuser"/>
+        <property name="password" value="springuser"/>
     </bean>
+
+    <tx:annotation-driven transaction-manager="txManager"/>
 
     <bean name="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource"/>
@@ -44,5 +49,9 @@
     <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="emf"/>
     </bean>
+
+    <jpa:repositories base-package="ru.unclediga.saburov.student"
+                      entity-manager-factory-ref="emf"
+                      transaction-manager-ref="txManager"/>
 
 </beans>
